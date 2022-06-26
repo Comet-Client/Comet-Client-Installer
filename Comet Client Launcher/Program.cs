@@ -24,7 +24,7 @@ namespace Comet_Client_Launcher
         public void Render()
         {
             Raylib.SetConfigFlags(ConfigFlags.FLAG_WINDOW_RESIZABLE);
-            Raylib.InitWindow(854,480,"Comet Client Launcher");
+            Raylib.InitWindow(854,480,"Comet Client Installer");
             Raylib.InitAudioDevice();
 
             // ICON
@@ -36,6 +36,10 @@ namespace Comet_Client_Launcher
             Font font = Raylib.LoadFont("res/FONT/Jost/Jost-VariableFont_wght.ttf");
             Font fontSB = Raylib.LoadFont("res/FONT/Jost/static/Jost-SemiBold.ttf");
             Font fontL = Raylib.LoadFont("res/FONT/Jost/static/Jost-Light.ttf");
+            Texture navbar = Raylib.LoadTexture("res/navbar.png");
+
+            RayGui.GuiLoadStyle("res/cometstyle.rgs");
+            RayGui.GuiSetFont(fontSB);
 
             while (!Raylib.WindowShouldClose())
             {
@@ -83,6 +87,11 @@ namespace Comet_Client_Launcher
                 }
                 else
                 {
+                    // THIS IS THE NAVBAR!!!
+                    Raylib.DrawTexturePro(navbar, new Rectangle(0,0,854,480), new Rectangle(0, 0, Raylib.GetScreenWidth(), Raylib.GetScreenHeight()), new System.Numerics.Vector2(0,0), 0, Raylib.WHITE);
+
+                    RayGui.GuiButton(new Rectangle(0, 0, Raylib.GetScreenWidth()/6, Raylib.GetScreenHeight()/10), "LOG IN");
+
                     // UNFADE FROM BLACK
                     flash -= Raylib.GetFrameTime()/2;
                     Raylib.DrawRectangle(0, 0, Raylib.GetScreenWidth(), Raylib.GetScreenHeight(), Raylib.Fade(Raylib.BLACK, flash));
@@ -97,6 +106,7 @@ namespace Comet_Client_Launcher
             Raylib.UnloadFont(font);
             Raylib.UnloadFont(fontSB);
             Raylib.UnloadFont(fontL);
+            Raylib.UnloadTexture(navbar);
 
             Raylib.CloseWindow();
             Raylib.CloseAudioDevice();
